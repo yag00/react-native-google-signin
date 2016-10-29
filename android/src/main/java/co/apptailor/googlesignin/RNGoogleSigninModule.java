@@ -47,10 +47,17 @@ public class RNGoogleSigninModule extends ReactContextBaseJavaModule implements 
         reactContext.addActivityEventListener(this);
     }
 
-    @Override
+    //@Override
     public void onNewIntent(Intent intent) {}
 
-    @Override
+    public void onActivityResult(final int requestCode, final int resultCode, final Intent intent) {
+        if (requestCode == RNGoogleSigninModule.RC_SIGN_IN) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(intent);
+            handleSignInResult(result, false);
+        }
+    }
+
+    //@Override
     public void onActivityResult(Activity activity, final int requestCode, final int resultCode, final Intent intent) {
         if (requestCode == RNGoogleSigninModule.RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(intent);
